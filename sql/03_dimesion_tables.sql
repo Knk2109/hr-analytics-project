@@ -43,3 +43,57 @@ FROM cleaned_employee_data;
 select *
 from dim_jobrole
 limit 5;
+
+
+
+DROP TABLE IF EXISTS dim_department;
+
+CREATE TABLE dim_department AS
+SELECT DISTINCT
+       department
+FROM cleaned_employee_data;
+
+SELECT COUNT(*)
+FROM dim_department;
+
+DROP TABLE IF EXISTS dim_jobrole;
+
+CREATE TABLE dim_jobrole AS
+SELECT DISTINCT
+       jobrole,
+       joblevel
+FROM cleaned_employee_data;
+
+SELECT COUNT(*)
+FROM dim_jobrole;
+
+ALTER TABLE dim_department
+ADD CONSTRAINT pk_dim_department
+PRIMARY KEY (department);
+
+ALTER TABLE dim_jobrole
+ADD CONSTRAINT pk_dim_jobrole
+PRIMARY KEY (jobrole);
+
+SELECT
+    jobrole,
+    COUNT(*)
+FROM dim_jobrole
+GROUP BY jobrole
+HAVING COUNT(*) > 1;
+
+DROP TABLE IF EXISTS dim_jobrole;
+
+CREATE TABLE dim_jobrole AS
+SELECT DISTINCT
+       jobrole
+FROM cleaned_employee_data;
+
+
+ALTER TABLE dim_employee
+ADD CONSTRAINT pk_dim_employee
+PRIMARY KEY (employeenumber);
+
+
+alter table dim_employee
+add joblevel int;
