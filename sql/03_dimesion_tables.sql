@@ -97,3 +97,17 @@ PRIMARY KEY (employeenumber);
 
 alter table dim_employee
 add joblevel int;
+
+UPDATE dim_employee d
+SET joblevel = c.joblevel
+FROM cleaned_employee_data c
+WHERE d.employeenumber = c.employeenumber;
+
+SELECT employeenumber,
+       joblevel
+FROM dim_employee
+LIMIT 10;
+
+SELECT COUNT(*)
+FROM dim_employee
+WHERE joblevel IS NULL;
