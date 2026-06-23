@@ -75,3 +75,22 @@ SELECT overtime,
        COUNT(*)
 FROM fact_employee_attrition
 GROUP BY overtime;
+
+ALTER TABLE fact_employee_attrition
+ADD COLUMN jobsatisfaction INT;
+
+ALTER TABLE fact_employee_attrition
+ADD COLUMN worklifebalance INT;
+
+UPDATE fact_employee_attrition f
+SET
+    jobsatisfaction = c.jobsatisfaction,
+    worklifebalance = c.worklifebalance
+FROM cleaned_employee_data c
+WHERE f.employeenumber = c.employeenumber;
+
+SELECT
+    jobsatisfaction,
+    worklifebalance
+FROM fact_employee_attrition
+LIMIT 10;
