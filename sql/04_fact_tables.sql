@@ -62,3 +62,16 @@ DROP CONSTRAINT fk_fact_employee;
 
 select count(*)
 from fact_employee_attrition fea ;
+
+ALTER TABLE fact_employee_attrition
+ADD COLUMN overtime VARCHAR(50);
+
+UPDATE fact_employee_attrition f
+SET overtime = c.overtime
+FROM cleaned_employee_data c
+WHERE f.employeenumber = c.employeenumber;
+
+SELECT overtime,
+       COUNT(*)
+FROM fact_employee_attrition
+GROUP BY overtime;
